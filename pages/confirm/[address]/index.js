@@ -9,19 +9,26 @@ const Supplier = () => {
     const router = useRouter()
     return (
         <>
-        <div className="px-8 mt-8 md:mt-10">
+        <div className="mt-10 md:mt-18 w-[95%] sm:w-[80%] lg:w-[90%] pb-14 mx-auto">
             <button className="cursor-pointer" onClick={() => router.back()}>
                 <Image className="w-[25px] md:w-[30px]" src="/icon/back.png" width={30} height={0} alt="" />
             </button>
 
             <div className="mt-10 md:mt-14">
-                <h1 className={`${urbanist.className} text-5xl font-semibold`}>PT SAMPOERNA</h1>
-                <p className="mt-1 opacity-75">Karawang, Jawa Barat</p>
+                <h1 className={`${urbanist.className} text-4xl md:text-5xl font-semibold`}>PT SAMPOERNA</h1>
+                <p className="text-sm md:text-base mt-1 opacity-75">Karawang, Jawa Barat</p>
             </div>
 
-            <div className="mt-10 md:mt-14">
-                <p className="opacity-75">ETH ADDRESS :</p>
-                <h2 className="text-3xl font-semibold mt-2">07x4....6351</h2>
+            <div className="mt-10 md:mt-14 flex flex-col md:flex-row gap-6 md:gap-14 w-[75%]">
+                <div>
+                    <p className="text-sm md:text-base opacity-75">ETH ADDRESS :</p>
+                    <p className="text-sm font-semibold mt-2 wrap-break-word">07x4....6351</p>
+                </div>
+
+                <div>
+                    <p className="text-sm md:text-base opacity-75">EMAIL SUPPLIER :</p>
+                    <p className="text-sm font-semibold mt-2 wrap-break-word">sampoernaddddddddddddddddddddddddddddeeeee@gmail.com</p>
+                </div>
             </div>
 
             <div className="mt-10 md:mt-14">
@@ -32,11 +39,11 @@ const Supplier = () => {
             </div>
 
             <div className="flex gap-4 mt-8">
-                <button className="w-full py-3 text-center bg-[#00DA5E] hover:bg-[#00b54e] rounded-sm cursor-pointer text-sm font-semibold transition-all duration-400">
+                <button className="w-full py-3 text-center bg-[#00DA5E] hover:bg-[#00b54e] rounded-sm cursor-pointer text-xs md:text-sm font-semibold transition-all duration-400">
                     Accept
                 </button>
 
-                <button className="w-full py-3 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-sm font-semibold transition-all duration-400">
+                <button className="w-full py-3 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs md:text-sm font-semibold transition-all duration-400">
                     Reject
                 </button>
             </div>
