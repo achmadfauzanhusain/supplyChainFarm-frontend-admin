@@ -39,7 +39,7 @@ const Supplier = () => {
             </div>
 
             <div className="mt-8">
-                <button className="w-full py-3 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs md:text-sm font-semibold transition-all duration-400">
+                <button className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
                     Remove from supplier
                 </button>
             </div>
