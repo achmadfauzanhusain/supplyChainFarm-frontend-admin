@@ -1,12 +1,15 @@
 import Image from "next/image"
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router"
 
 import { Urbanist } from "next/font/google"
-
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-const Supplier = () => {
+import { detailSupplier } from "@/services/supplier";
+
+const Supplier = ({ supplier }) => {
     const router = useRouter()
+    console.log(supplier)
     return (
         <>
         <div className="mt-10 md:mt-18 w-[95%] sm:w-[80%] lg:w-[90%] pb-14 mx-auto">
@@ -15,26 +18,26 @@ const Supplier = () => {
             </button>
 
             <div className="mt-10 md:mt-14">
-                <h1 className={`${urbanist.className} text-4xl md:text-5xl font-semibold`}>PT SAMPOERNA</h1>
-                <p className="text-sm md:text-base mt-1 opacity-75">Karawang, Jawa Barat</p>
+                <h1 className={`${urbanist.className} text-4xl md:text-5xl font-semibold`}>{supplier?.supplierName}</h1>
+                <p className="text-sm md:text-base mt-1 opacity-75">{supplier?.origin}</p>
             </div>
 
             <div className="mt-10 md:mt-14 flex flex-col md:flex-row gap-6 md:gap-14 w-[75%]">
                 <div>
                     <p className="text-sm md:text-base opacity-75">ETH ADDRESS :</p>
-                    <p className="text-sm font-semibold mt-2 wrap-break-word">07x4....6351</p>
+                    <p className="text-sm font-semibold mt-2 wrap-break-word">{supplier?.ethWalletAddress}</p>
                 </div>
 
                 <div>
                     <p className="text-sm md:text-base opacity-75">EMAIL SUPPLIER :</p>
-                    <p className="text-sm font-semibold mt-2 wrap-break-word">sampoernaddddddddddddddddddddddddddddeeeee@gmail.com</p>
+                    <p className="text-sm font-semibold mt-2 wrap-break-word">{supplier?.emailSupplier}</p>
                 </div>
             </div>
 
             <div className="mt-10 md:mt-14">
                 <p className="text-sm opacity-75">Supplier Description :</p>
                 <p className="text-sm opacity-75 w-[90%] mt-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    {supplier?.description}
                 </p>
             </div>
 
@@ -53,3 +56,14 @@ const Supplier = () => {
 }
 
 export default Supplier
+
+export async function getServerSideProps(context) {
+    const { address } = context.query;
+    const response = await detailSupplier(address);
+
+    return {
+        props: {
+            supplier: response.data.data
+        }
+    };
+}

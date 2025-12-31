@@ -20,8 +20,8 @@ export async function registeredSuppliers() {
     });
 }
 
-export async function detailSupplier(ethWalletAddress) {
-    const url = `${ROOT_API}/${API_VERSION}/supplier/detail/${ethWalletAddress}`;
+export async function detailSupplier(address) {
+    const url = `${ROOT_API}/${API_VERSION}/supplier/detail/${address}`;
     return await callApi({
         url,
         method: "GET",
