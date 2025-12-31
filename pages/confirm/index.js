@@ -1,14 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Navbar from "@/components/navbar";
 import { Urbanist } from "next/font/google"
+const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] })
 
-const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+import { notRegisteredSuppliers } from "@/services/supplier"
 
 const Confirm = () => {
-    const router = useRouter() 
+    const [suppliers, setSuppliers] = useState([])
+
+    const router = useRouter()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await notRegisteredSuppliers()
+            setSuppliers(response.data.data)
+        }
+        fetchData()
+    }, [])
+    console.log(suppliers);
     return (
         <>
             <div className="mt-10 md:mt-18 px-5 md:px-8 lg:px-18">
@@ -21,16 +33,18 @@ const Confirm = () => {
                     <p className="text-xs sm:text-sm md:text-base mt-2 opacity-75">Confirmation of accounts that will <br /> become suppliers</p>
                 </div>
 
-                <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2">
-                    <Link href="/confirm/07x4....6351" className="bg-[#BEE3F8]/25 hover:bg-[#0D6EFD] w-full px-3 sm:px-4 md:px-6 py-4 md:py-6 rounded-md flex flex-col gap-5 transition-all duration-300">
-                        <div>
-                            <h2 className="text-base sm:text-xl md:text-2xl font-semibold wrap-break-word">PT SAMPOERNA</h2>
-                            <p className="text-xs md:text-sm">Karawang, Jawa Barat</p>
-                        </div>
-                        <div>
-                            <p className="text-xs md:text-sm">07x4....6351</p>
-                        </div>
-                    </Link>
+                <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                    {suppliers.map((s) => (
+                        <Link key={s.ethWalletAddress} href={`/confirm/${s.ethWalletAddress}`} className="bg-[#BEE3F8]/25 hover:bg-[#0D6EFD] w-full px-3 sm:px-4 md:px-6 py-4 md:py-6 rounded-md flex flex-col gap-5 transition-all duration-300">
+                            <div>
+                                <h2 className="text-base sm:text-xl md:text-2xl font-semibold wrap-break-word">{s.supplierName}</h2>
+                                <p className="text-xs md:text-sm">{s.origin}</p>
+                            </div>
+                            <div>
+                                <p className="text-xs md:text-sm">{s.ethWalletAddress}</p>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </>
