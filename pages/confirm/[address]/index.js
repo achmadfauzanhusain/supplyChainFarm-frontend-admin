@@ -7,9 +7,46 @@ const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "7
 
 import { detailSupplier } from "@/services/supplier";
 
+import { BrowserProvider, Contract, formatUnits } from "ethers";
+import config from "../../../config.json";
+import SupplyChainNFT from "../../../abis/SupplyChainNFT.json";
+
 const Supplier = ({ supplier }) => {
+    const [contract, setContract] = useState(null);
+
     const router = useRouter()
-    console.log(supplier)
+
+    const loadBlockchainData = async () => {
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+
+        const provider = new BrowserProvider(window.ethereum)
+        const network = await provider.getNetwork()
+        const signer = await provider.getSigner()
+
+        const supplyChainNFT = new Contract(
+            config[network.chainId].SupplyChainNFT.address,
+            SupplyChainNFT,
+            signer
+        )
+        setContract(supplyChainNFT)
+    }
+
+    const acceptSupplier = async () => {
+        if(!contract) return;
+
+        try {
+            
+        } catch (error) {
+            console.log("Error accepting supplier:", error);
+        }
+    }
+
+    const rejectSupplier = async () => {}
+
+    useEffect(() => {
+        loadBlockchainData()
+    }, [])
+    console.log(contract)
     return (
         <>
         <div className="mt-10 md:mt-18 w-[95%] sm:w-[80%] lg:w-[90%] pb-14 mx-auto">
