@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { Urbanist } from "next/font/google"
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-import { detailSupplier } from "@/services/supplier";
+import { detailSupplier, deleteSupplier } from "@/services/supplier";
 
 import { BrowserProvider, Contract } from "ethers";
 import config from "../../../config.json";
@@ -32,6 +32,24 @@ const Supplier = ({ supplier }) => {
             signer
         )
         setContract(supplyChainNFT)
+    }
+
+    const removeFromSupplier = async () => {
+        if(!contract) return;
+
+        try {
+            const response = await deleteSupplier({
+                ethWalletAddress: supplier.ethWalletAddress
+            })
+            if(response?.error === true) {
+                toast.error(response.message);
+            } else {
+                toast.success(response.data.message);
+                router.push("/")
+            }
+        } catch (error) {
+            toast.error(error);
+        }
     }
 
     useEffect(() => {
@@ -69,7 +87,9 @@ const Supplier = ({ supplier }) => {
             </div>
 
             <div className="mt-8">
-                <button className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
+                <button 
+                    onClick={removeFromSupplier}
+                    className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
                     Remove from supplier
                 </button>
             </div>
