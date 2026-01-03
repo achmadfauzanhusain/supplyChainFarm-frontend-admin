@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { Urbanist } from "next/font/google"
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-import { detailSupplier, changeStatus } from "@/services/supplier";
+import { detailSupplier, changeStatus, deleteSupplier } from "@/services/supplier";
 
 import { BrowserProvider, Contract } from "ethers";
 import config from "../../../config.json";
@@ -58,7 +58,17 @@ const Supplier = ({ supplier }) => {
         if(!contract) return;
 
         try {
-            
+            const response = await deleteSupplier({
+                ethWalletAddress: supplier.ethWalletAddress
+            })
+            console.log(response)
+            await response.wait()
+            if(!response) {
+                toast.error("Transaction failed!");
+                return;
+            }
+            toast.success("Supplier rejected successfully!");
+            router.push("/")
         } catch (error) {
             toast.error(error);
         }
@@ -106,7 +116,10 @@ const Supplier = ({ supplier }) => {
                     Accept
                 </button>
 
-                <button className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
+                <button
+                    onClick={rejectSupplier}
+                    disabled={!contract}
+                    className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
                     Reject
                 </button>
             </div>
