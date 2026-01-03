@@ -11,6 +11,9 @@ import { BrowserProvider, Contract } from "ethers";
 import config from "../../../config.json";
 import SupplyChainNFT from "../../../abis/SupplyChainNFT.json";
 
+import { toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 const Supplier = ({ supplier }) => {
     const [contract, setContract] = useState(null);
 
@@ -38,16 +41,16 @@ const Supplier = ({ supplier }) => {
             const tx = await contract.addSupplier(supplier.ethWalletAddress)
             await tx.wait()
             if(!tx) {
-                console.log("Transaction failed")
-                return
+                toast.error("Transaction failed!");
+                return;
             }
             await changeStatus({
                 ethWalletAddress: supplier.ethWalletAddress
             })
-
-            console.log("Supplier accepted successfully");
+            toast.success("Supplier accepted successfully!");
+            router.push("/")
         } catch (error) {
-            console.log("Error accepting supplier:", error);
+            toast.error(error);
         }
     }
 
