@@ -27,3 +27,12 @@ export async function detailSupplier(address) {
         method: "GET",
     });
 }
+
+export async function changeStatus(data) {
+    const url = `${ROOT_API}/${API_VERSION}/supplier/change-status`;
+    return await callApi({
+        url,
+        method: "PATCH",
+        data,
+    });
+}
