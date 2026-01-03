@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { Urbanist } from "next/font/google"
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-import { detailSupplier } from "@/services/supplier";
+import { detailSupplier, changeStatus } from "@/services/supplier";
 
 import { BrowserProvider, Contract } from "ethers";
 import config from "../../../config.json";
@@ -35,8 +35,16 @@ const Supplier = ({ supplier }) => {
         if(!contract) return;
 
         try {
-            const tx = await contract.addSupplier(supplier.ethWalletAddress);
-            await tx.wait();
+            const tx = await contract.addSupplier(supplier.ethWalletAddress)
+            await tx.wait()
+            if(!tx) {
+                console.log("Transaction failed")
+                return
+            }
+            await changeStatus({
+                ethWalletAddress: supplier.ethWalletAddress
+            })
+
             console.log("Supplier accepted successfully");
         } catch (error) {
             console.log("Error accepting supplier:", error);
