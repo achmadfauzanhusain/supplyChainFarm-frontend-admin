@@ -49,7 +49,7 @@ export default function OwnerGuard({ children }) {
     // initial check
     checkOwner()
 
-    // 🔥 LISTEN ACCOUNT CHANGE
+    // LISTEN ACCOUNT CHANGE
     const handleAccountsChanged = (accounts) => {
       if (!accounts || accounts.length === 0) {
         router.replace("/blocked")
