@@ -38,7 +38,7 @@ export async function changeStatus(data) {
 }
 
 export async function deleteSupplier(data) {
-    const url = `${ROOT_API}/${API_VERSION}/supplier/delete`;
+    const url = `${ROOT_API}/${API_VERSION}/supplier`;
     return await callApi({
         url,
         method: "DELETE",
