@@ -32,7 +32,7 @@ const Registered = () => {
                     <p className="text-xs sm:text-sm md:text-base mt-2 opacity-75">who are already registered</p>
                 </div>
 
-                <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2">
+                <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     {suppliers.map((s) => (
                     <Link key={s.ethWalletAddress} href="/registered/07x4....6351" className="bg-[#BEE3F8]/25 hover:bg-[#0D6EFD] w-full px-3 sm:px-4 md:px-6 py-4 md:py-6 rounded-md flex flex-col gap-5 transition-all duration-300">
                         <div>
