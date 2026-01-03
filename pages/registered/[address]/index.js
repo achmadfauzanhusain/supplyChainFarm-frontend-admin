@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router"
 
 import { Urbanist } from "next/font/google"
@@ -6,12 +7,36 @@ const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "7
 
 import { detailSupplier } from "@/services/supplier";
 
+import { BrowserProvider, Contract } from "ethers";
+import config from "../../../config.json";
+import SupplyChainNFT from "../../../abis/SupplyChainNFT.json";
+
 import { toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 const Supplier = ({ supplier }) => {
-    console.log(supplier)
+    const [contract, setContract] = useState(null);
+
     const router = useRouter()
+
+    const loadBlockchainData = async () => {
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+
+        const provider = new BrowserProvider(window.ethereum)
+        const network = await provider.getNetwork()
+        const signer = await provider.getSigner()
+
+        const supplyChainNFT = new Contract(
+            config[network.chainId].SupplyChainNFT.address,
+            SupplyChainNFT,
+            signer
+        )
+        setContract(supplyChainNFT)
+    }
+
+    useEffect(() => {
+        loadBlockchainData()
+    }, [])
     return (
         <>
         <div className="mt-10 md:mt-18 w-[95%] sm:w-[80%] lg:w-[90%] pb-14 mx-auto">
