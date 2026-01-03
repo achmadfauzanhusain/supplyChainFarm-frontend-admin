@@ -2,10 +2,15 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 
 import { Urbanist } from "next/font/google"
-
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-const Supplier = () => {
+import { detailSupplier } from "@/services/supplier";
+
+import { toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
+const Supplier = ({ supplier }) => {
+    console.log(supplier)
     const router = useRouter()
     return (
         <>
@@ -49,3 +54,14 @@ const Supplier = () => {
 }
 
 export default Supplier
+
+export async function getServerSideProps(context) {
+    const { address } = context.query;
+    const response = await detailSupplier(address);
+
+    return {
+        props: {
+            supplier: response.data.data
+        }
+    };
+}
