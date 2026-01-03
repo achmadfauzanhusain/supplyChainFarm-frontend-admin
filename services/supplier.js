@@ -36,3 +36,12 @@ export async function changeStatus(data) {
         data,
     });
 }
+
+export async function deleteSupplier(data) {
+    const url = `${ROOT_API}/${API_VERSION}/supplier/delete`;
+    return await callApi({
+        url,
+        method: "DELETE",
+        data,
+    });
+}

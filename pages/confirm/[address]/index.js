@@ -54,7 +54,15 @@ const Supplier = ({ supplier }) => {
         }
     }
 
-    const rejectSupplier = async () => {}
+    const rejectSupplier = async () => {
+        if(!contract) return;
+
+        try {
+            
+        } catch (error) {
+            toast.error(error);
+        }
+    }
 
     useEffect(() => {
         loadBlockchainData()
