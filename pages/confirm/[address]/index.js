@@ -7,7 +7,7 @@ const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "7
 
 import { detailSupplier } from "@/services/supplier";
 
-import { BrowserProvider, Contract, formatUnits } from "ethers";
+import { BrowserProvider, Contract } from "ethers";
 import config from "../../../config.json";
 import SupplyChainNFT from "../../../abis/SupplyChainNFT.json";
 
@@ -35,7 +35,9 @@ const Supplier = ({ supplier }) => {
         if(!contract) return;
 
         try {
-            
+            const tx = await contract.addSupplier(supplier.ethWalletAddress);
+            await tx.wait();
+            console.log("Supplier accepted successfully");
         } catch (error) {
             console.log("Error accepting supplier:", error);
         }
@@ -46,7 +48,6 @@ const Supplier = ({ supplier }) => {
     useEffect(() => {
         loadBlockchainData()
     }, [])
-    console.log(contract)
     return (
         <>
         <div className="mt-10 md:mt-18 w-[95%] sm:w-[80%] lg:w-[90%] pb-14 mx-auto">
@@ -79,7 +80,10 @@ const Supplier = ({ supplier }) => {
             </div>
 
             <div className="flex gap-4 mt-8">
-                <button className="w-full py-4 text-center bg-[#00DA5E] hover:bg-[#00b54e] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
+                <button
+                    onClick={acceptSupplier}
+                    disabled={!contract}
+                    className="w-full py-4 text-center bg-[#00DA5E] hover:bg-[#00b54e] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
                     Accept
                 </button>
 

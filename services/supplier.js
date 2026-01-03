@@ -1,7 +1,7 @@
 import axios from "axios";
 import callApi from "@/config/api";
 
-const ROOT_API = "http://localhost:8000";
+const ROOT_API = "https://tblo-server.vercel.app";
 const API_VERSION = "api/v1";
 
 export async function notRegisteredSuppliers() {
