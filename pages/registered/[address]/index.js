@@ -38,6 +38,12 @@ const Supplier = ({ supplier }) => {
         if(!contract) return;
 
         try {
+            const tx = await contract.removeSupplier(supplier.ethWalletAddress)
+            await tx.wait()
+            if(!tx) {
+                toast.error("Transaction failed!");
+                return;
+            }
             const response = await deleteSupplier({
                 ethWalletAddress: supplier.ethWalletAddress
             })
