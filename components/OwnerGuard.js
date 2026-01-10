@@ -11,6 +11,10 @@ export default function OwnerGuard({ children }) {
 
   const checkOwner = async () => {
     try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0xaa36a7" }], // 11155111 in hex
+      })
       if (!window.ethereum) {
         router.replace("/blocked")
         return
