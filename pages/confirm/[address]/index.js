@@ -61,10 +61,14 @@ const Supplier = ({ supplier }) => {
         if(!contract) return;
 
         try {
+            const confirm = confirm("Apakah Kamu Yakin?")
+            if(!confirm) {
+                toast.success("Okee!");
+                return;
+            }
             const response = await deleteSupplier({
                 ethWalletAddress: supplier.ethWalletAddress
             })
-            console.log(response)
             await response.wait()
             if(!response) {
                 toast.error("Transaction failed!");
