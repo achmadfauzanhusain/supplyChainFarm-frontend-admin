@@ -58,24 +58,19 @@ const Supplier = ({ supplier }) => {
     }
 
     const rejectSupplier = async () => {
-        if(!contract) return;
-
         try {
-            const confirm = confirm("Apakah Kamu Yakin?")
-            if(!confirm) {
-                toast.success("Okee!");
-                return;
+            const confirm = window.confirm("Apakah Kamu Yakin?")
+            if(confirm) {
+                const response = await deleteSupplier({
+                    ethWalletAddress: supplier.ethWalletAddress
+                })
+                if(!response) {
+                    toast.error("Transaction failed!");
+                    return;
+                }
+                toast.success("Supplier rejected successfully!");
+                router.push("/")
             }
-            const response = await deleteSupplier({
-                ethWalletAddress: supplier.ethWalletAddress
-            })
-            await response.wait()
-            if(!response) {
-                toast.error("Transaction failed!");
-                return;
-            }
-            toast.success("Supplier rejected successfully!");
-            router.push("/")
         } catch (error) {
             toast.error(error);
         }
@@ -125,7 +120,6 @@ const Supplier = ({ supplier }) => {
 
                 <button
                     onClick={rejectSupplier}
-                    disabled={!contract}
                     className="w-full py-4 text-center bg-[#DA1D00] hover:bg-[#ab1700] rounded-sm cursor-pointer text-xs font-semibold transition-all duration-400">
                     Reject
                 </button>
