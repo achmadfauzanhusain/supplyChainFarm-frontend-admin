@@ -71,7 +71,7 @@ const Search = () => {
                             className="bg-[#BEE3F8]/25 hover:bg-[#0D6EFD] w-full px-3 sm:px-4 md:px-6 py-4 md:py-6 rounded-md flex flex-col gap-5 transition-all duration-300"
                         >
                             <div>
-                                <h2 className="text-base sm:text-xl md:text-2xl font-semibold break-words">
+                                <h2 className="text-base sm:text-xl md:text-2xl font-semibold wrap-break-word">
                                     {s.supplierName}
                                 </h2>
                                 <p className="text-xs md:text-sm">{s.origin}</p>
