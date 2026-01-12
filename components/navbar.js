@@ -19,6 +19,10 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className={`${urbanist.className} hidden md:flex items-center gap-10 text-base`}>
+          <Link href="/search" className="cursor-pointer hover:opacity-75 transition-all duration-300">
+            Search
+          </Link>
+
           <Link href="/confirm" className="cursor-pointer hover:opacity-75 transition-all duration-300">
             Confirm
           </Link>
@@ -69,6 +73,10 @@ const Navbar = () => {
 
         {/* Drawer Menu */}
         <div className="flex flex-col px-8 pt-4 gap-6 text-base font-semibold">
+          <Link href="/search" className="p-2 rounded-lg hover:bg-white/20" onClick={() => setIsOpen(false)}>
+            Search
+          </Link>
+
           <Link href="/confirm" className="p-2 rounded-lg hover:bg-white/20" onClick={() => setIsOpen(false)}>
             Confirm
           </Link>
