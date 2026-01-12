@@ -1,4 +1,3 @@
-import axios from "axios";
 import callApi from "@/config/api";
 
 const ROOT_API = "https://tblo-server.vercel.app";
@@ -44,4 +43,13 @@ export async function deleteSupplier(data) {
         method: "DELETE",
         data,
     });
+}
+
+export async function searchSupplier(data) {
+  const url = `${ROOT_API}/${API_VERSION}/supplier/search`;
+  return await callApi({
+    url,
+    method: "POST",
+    data
+  })
 }

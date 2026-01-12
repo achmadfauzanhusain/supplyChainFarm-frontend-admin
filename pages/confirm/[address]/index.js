@@ -89,6 +89,7 @@ const Supplier = ({ supplier }) => {
             <div className="mt-10 md:mt-14">
                 <h1 className={`${urbanist.className} text-4xl md:text-5xl font-semibold`}>{supplier?.supplierName}</h1>
                 <p className="text-sm md:text-base mt-1 opacity-75">{supplier?.origin}</p>
+                <p className="text-sm md:text-base mt-1 opacity-75">{supplier?.status}</p>
             </div>
 
             <div className="mt-10 md:mt-14 flex flex-col md:flex-row gap-6 md:gap-14 w-[75%]">
