@@ -38,6 +38,7 @@ const Confirm = () => {
                             <div>
                                 <h2 className="text-base sm:text-xl md:text-2xl font-semibold wrap-break-word">{s.supplierName}</h2>
                                 <p className="text-xs md:text-sm">{s.origin}</p>
+                                <p className="text-xs md:text-sm">{s.status}</p>
                             </div>
                             <div>
                                 <p className="text-xs md:text-sm">{s.ethWalletAddress}</p>
