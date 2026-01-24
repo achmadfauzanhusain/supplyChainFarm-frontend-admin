@@ -69,7 +69,7 @@ const Confirm = () => {
                                     <p className="text-xs md:text-sm">{s.status}</p>
                                 </div>
                                 <div>
-                                    <p className="text-xs md:text-sm">{s.ethWalletAddress}</p>
+                                    <p className="text-xs md:text-sm">{s.phone}</p>
                                 </div>
                             </Link>
                         ))
